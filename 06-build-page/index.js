@@ -50,6 +50,8 @@ async function buildPage() {
   await fs.writeFile(path.join(outputDir, 'style.css'), styles);
 
   await copyDir(assetsDir, path.join(outputDir, 'assets'));
+
+  console.log('Page successfully built and saved.')
 }
 
 buildPage().catch(console.error);
