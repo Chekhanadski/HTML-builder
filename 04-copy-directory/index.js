@@ -1,9 +1,15 @@
 const fs = require('fs').promises;
 const path = require('path');
 
+async function clearDir(dir) {
+  const files = await fs.readdir(dir);
+  await Promise.all(files.map(file => fs.unlink(path.join(dir, file))));
+}
+
 async function copyDir(copyFrom, copyTo) {
   try {
     await fs.mkdir(copyTo, { recursive: true });
+    await clearDir(copyTo);
     const contentFiles = await fs.readdir(copyFrom, { withFileTypes: true });
 
     for (let contentFile of contentFiles) {
